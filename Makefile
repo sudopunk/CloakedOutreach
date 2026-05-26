@@ -8,8 +8,9 @@ install: ## install all Python dependencies (local dev)
 	pip install uv 2>/dev/null || true
 	uv pip install -r requirements/local.txt
 
-setup: install ## install deps + Playwright browsers + migrate + bootstrap CRM
-	playwright install --with-deps chromium
+setup: install ## install deps + CloakBrowser binary + migrate + bootstrap CRM
+	python -m cloakbrowser install
+	playwright install-deps chromium
 	python manage.py migrate --no-input
 	python manage.py setup_crm
 

@@ -15,10 +15,9 @@ FROM python:3.12-slim-bookworm AS runtime
 COPY --from=deps /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY --from=deps /usr/local/bin /usr/local/bin
 
-# Install Playwright Chromium to a shared path accessible by any user
-ENV PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers
+# Install system dependencies for Chromium
 ENV EDITOR=nano
-RUN playwright install --with-deps chromium
+RUN playwright install-deps chromium
 
 # VNC stack (started conditionally via ENABLE_VNC=true at runtime)
 RUN apt-get update \
@@ -42,6 +41,10 @@ RUN sed -i 's/\r$//g' /entrypoint /start && chmod +x /entrypoint /start
 
 COPY --chown=ubuntu:ubuntu . ${APP_HOME}
 RUN chown ubuntu:ubuntu ${APP_HOME}
+
+# Pre-download CloakBrowser binary to the workspace cache directory
+ENV CLOAKBROWSER_CACHE_DIR=${APP_HOME}/.cloakbrowser
+RUN python -m cloakbrowser install && chown -R ubuntu:ubuntu ${CLOAKBROWSER_CACHE_DIR}
 
 ENTRYPOINT ["/entrypoint"]
 CMD ["/start"]

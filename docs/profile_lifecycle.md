@@ -182,10 +182,3 @@ interval is 72 hours if the agent doesn't specify one. Rate-limited to
                           └─────────────┘
 ```
 
-## Freemium Campaigns
-
-Freemium campaigns skip qualification, READY_TO_CONNECT, and search entirely.
-They query `Lead` for any embedded lead without a Deal in their
-campaign (excluding permanently disqualified leads), ranked by `KitQualifier`.
-Profiles go straight to connect, with delay scaled by `action_fraction` to
-maintain a target ratio of freemium vs regular connections.

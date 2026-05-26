@@ -13,7 +13,7 @@ ROOT_DIR = Path(__file__).parent.parent
 
 PROMPTS_DIR = Path(__file__).parent / "templates" / "prompts"
 
-DIAGNOSTICS_DIR = Path("/tmp/openoutreach-diagnostics")
+DIAGNOSTICS_DIR = Path("/tmp/cloakedoutreach-diagnostics")
 
 FASTEMBED_CACHE_DIR = ROOT_DIR / ".cache" / "fastembed"
 

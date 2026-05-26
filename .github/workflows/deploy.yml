@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: eracle/openoutreach
+  IMAGE_NAME: sudopunk/cloakedoutreach
 
 jobs:
   test:
@@ -60,5 +60,5 @@ jobs:
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.GH_PAT }}
-          repository: eracle/hub.openoutreach.app
+          repository: sudopunk/hub.cloakedoutreach.app
           event-type: image-updated

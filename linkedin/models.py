@@ -62,8 +62,6 @@ class Campaign(models.Model):
     product_docs = models.TextField(blank=True)
     campaign_objective = models.TextField(blank=True)
     booking_link = models.URLField(max_length=500, blank=True)
-    is_freemium = models.BooleanField(default=False)
-    action_fraction = models.FloatField(default=0.2)
     seed_public_ids = models.JSONField(default=list, blank=True)
     model_blob = models.BinaryField(null=True, blank=True)
 
@@ -89,14 +87,12 @@ class LinkedInProfile(models.Model):
     )
     linkedin_username = models.CharField(max_length=200)
     linkedin_password = models.CharField(max_length=200)
-    subscribe_newsletter = models.BooleanField(default=True)
     active = models.BooleanField(default=True)
     connect_daily_limit = models.PositiveIntegerField(default=20)
     connect_weekly_limit = models.PositiveIntegerField(default=100)
     follow_up_daily_limit = models.PositiveIntegerField(default=25)
     legal_accepted = models.BooleanField(default=False)
     cookie_data = models.JSONField(null=True, blank=True)
-    newsletter_processed = models.BooleanField(default=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

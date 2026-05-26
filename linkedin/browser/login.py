@@ -1,9 +1,15 @@
 # linkedin/browser/login.py
 import logging
+import os
+
+# Ensure CloakBrowser uses the local workspace cache directory which is writeable
+os.environ["CLOAKBROWSER_CACHE_DIR"] = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+    ".cloakbrowser"
+)
 
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
-from playwright.sync_api import sync_playwright
-from playwright_stealth import Stealth
+import cloakbrowser
 from termcolor import colored
 
 from linkedin.browser.nav import goto_page, human_type, resolve_locator
@@ -96,15 +102,17 @@ def playwright_login(session: "AccountSession"):
 
 
 def launch_browser(storage_state=None):
-    logger.debug("Launching Playwright")
-    playwright = sync_playwright().start()
-    browser = playwright.chromium.launch(headless=False, slow_mo=BROWSER_SLOW_MO)
+    logger.debug("Launching CloakBrowser")
+    browser = cloakbrowser.launch(
+        headless=False,
+        slow_mo=BROWSER_SLOW_MO,
+        args=["--disable-gpu", "--disable-setuid-sandbox"]
+    )
     context = browser.new_context(storage_state=storage_state)
     context.set_default_timeout(BROWSER_DEFAULT_TIMEOUT_MS)
     context.set_default_navigation_timeout(BROWSER_DEFAULT_TIMEOUT_MS)
-    Stealth().apply_stealth_sync(context)
     page = context.new_page()
-    return page, context, browser, playwright
+    return page, context, browser, None
 
 
 def _save_cookies(session):

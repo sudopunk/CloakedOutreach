@@ -1,17 +1,24 @@
 # tests/browser/conftest.py
 """Playwright fixtures for testing selectors against saved HTML pages."""
+import os
 import pytest
-from playwright.sync_api import sync_playwright
+
+# Ensure CloakBrowser uses the local workspace cache directory which is writeable
+os.environ["CLOAKBROWSER_CACHE_DIR"] = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+    ".cloakbrowser"
+)
+
+import cloakbrowser
 
 from linkedin.conf import FIXTURE_PAGES_DIR
 
 
 @pytest.fixture(scope="session")
 def browser():
-    with sync_playwright() as pw:
-        b = pw.chromium.launch(headless=True)
-        yield b
-        b.close()
+    b = cloakbrowser.launch(headless=True, args=["--disable-gpu", "--disable-setuid-sandbox"])
+    yield b
+    b.close()
 
 
 @pytest.fixture

@@ -1,14 +1,13 @@
-![OpenOutreach Logo](docs/logo.png)
+![CloakedOutreach Logo](docs/logo.png)
 
 > **Describe your product. Define your target market. The AI finds the leads for you.**
 
 <div align="center">
 
-[![GitHub stars](https://img.shields.io/github/stars/eracle/OpenOutreach.svg?style=flat-square&logo=github)](https://github.com/eracle/OpenOutreach/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/eracle/OpenOutreach.svg?style=flat-square&logo=github)](https://github.com/eracle/OpenOutreach/network/members)
+[![GitHub stars](https://img.shields.io/github/stars/sudopunk/CloakedOutreach.svg?style=flat-square&logo=github)](https://github.com/sudopunk/CloakedOutreach/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/sudopunk/CloakedOutreach.svg?style=flat-square&logo=github)](https://github.com/sudopunk/CloakedOutreach/network/members)
 [![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
-[![Open Issues](https://img.shields.io/github/issues/eracle/OpenOutreach.svg?style=flat-square&logo=github)](https://github.com/eracle/OpenOutreach/issues)
-[![Cloud](https://img.shields.io/badge/Cloud-Hosted-28A745?style=flat-square)](https://openoutreach.app)
+[![Open Issues](https://img.shields.io/github/issues/sudopunk/CloakedOutreach.svg?style=flat-square&logo=github)](https://github.com/sudopunk/CloakedOutreach/issues)
 
 <br/>
 
@@ -20,9 +19,14 @@
 
 ---
 
-### 🚀 What is OpenOutreach?
+> [!NOTE]
+> **CloakedOutreach** is a hard fork of the original [OpenOutreach](https://github.com/eracle/OpenOutreach) project.
+> - **No Monetization/Promo**: Removed all freemium promotional actions, auto-subscription newsletter mechanisms, and cloud marketing banners.
+> - **Stealth Migration**: Standard Playwright + Stealth has been replaced by **CloakBrowser** for enhanced evasion of anti-bot systems.
 
-OpenOutreach is a **self-hosted, open-source LinkedIn automation tool** for B2B lead generation. Unlike other tools, **you don't need a list of profiles to contact** — you describe your product and your target market, and the system autonomously discovers, qualifies, and contacts the right people.
+### 🚀 What is CloakedOutreach?
+
+CloakedOutreach is a **self-hosted, open-source LinkedIn automation tool** for B2B lead generation. Unlike other tools, **you don't need a list of profiles to contact** — you describe your product and your target market, and the system autonomously discovers, qualifies, and contacts the right people.
 
 **How it works:**
 
@@ -34,10 +38,10 @@ OpenOutreach is a **self-hosted, open-source LinkedIn automation tool** for B2B 
 
 The system gets smarter with every decision. It starts by exploring broadly, then progressively focuses on the highest-value profiles as it learns your ideal customer profile from its own classification history.
 
-**Why choose OpenOutreach?**
+**Why choose CloakedOutreach?**
 
 - 🧠 **Autonomous lead discovery** — No contact lists needed; AI finds your ideal customers
-- 🛡️ **Undetectable** — Playwright + stealth plugins mimic real user behavior
+- 🛡️ **Undetectable** — Powered by CloakBrowser to bypass advanced bot detection
 - 💾 **Self-hosted + full data ownership** — Everything runs locally, browse your CRM in a web UI
 - 🐳 **One-command setup** — Dockerized deployment, interactive onboarding
 - ✨ **AI-powered messaging** — LLM-generated personalized outreach (bring your own model)
@@ -60,53 +64,17 @@ That's it. No spreadsheets, no lead databases, no scraping setup.
 
 ## ⚡ Quick Start (Docker — Recommended)
 
-Pre-built images are published to GitHub Container Registry on every push to `master`.
+Pre-built images are published to GitHub Container Registry on every push to `main`.
 
 ```bash
-docker run --pull always -it -p 5900:5900 -p 6080:6080 -v ~/.openoutreach/data:/app/data ghcr.io/eracle/openoutreach:latest
-
-# Open http://localhost:6080/vnc.html in your browser to watch the automation live
+docker run --pull always -it -p 5900:5900 -v cloakedoutreach_db:/app/data ghcr.io/sudopunk/cloakedoutreach:latest
 ```
 
-The interactive onboarding walks you through the three inputs above on first run. All data persists in `~/.openoutreach/data` on your host across restarts.
+The interactive onboarding walks you through the three inputs above on first run. All data persists in the `cloakedoutreach_db` Docker volume across restarts.
 
-Once the container is running, open **http://localhost:6080/vnc.html** in your browser to watch the browser live (noVNC). Alternatively, connect a native VNC client to `localhost:5900`.
+Once the container is running, connect a native VNC client to `localhost:5900` to watch the automation live.
 
 For Docker Compose, build-from-source, and more options see the **[Docker Guide](./docs/docker.md)**.
-
-> Don't want to manage Docker and VPNs? See [OpenOutreach Cloud](#%EF%B8%8F-openoutreach-cloud--zero-ops-same-ai) below.
-
----
-
-## ☁️ OpenOutreach Cloud — Zero Ops, Same AI
-
-Once you've set up locally and your campaigns are running, **OpenOutreach Cloud** lets you move everything to a managed, VPN-protected server with a single command. Same open-source code, same database — we just handle the infrastructure.
-
-```bash
-curl -fsSL https://openoutreach.app/install | sh   # install the CLI
-openoutreach signup                                  # subscribe via Stripe
-openoutreach up ./data                               # upload your DB, provision a server
-openoutreach logs                                    # watch leads roll in
-openoutreach down                                    # download your updated DB, destroy the server
-```
-
-| | Self-Hosted (Free) | Cloud (Managed) |
-|---|---|---|
-| AI lead discovery + Bayesian ML | Yes | Yes |
-| AI follow-up agent | Yes | Yes |
-| Data ownership | Full (your DB) | Full (your DB) |
-| Docker + VPN setup | You manage | We manage |
-| Setup time | 30-60 min | ~1 min |
-
-**Your data stays yours.** `openoutreach up` uploads your local `db.sqlite3` to a dedicated droplet; `openoutreach down` brings it back with every new lead, message, and campaign update before the server is destroyed. Switch between self-hosted and Cloud anytime without losing anything.
-
-No feature gating, no lock-in. Cloud is a convenience layer — the code running on the server is the exact same open-source image you run locally.
-
-<div align="center">
-
-[![Get Started with Cloud](https://img.shields.io/badge/Get%20Started%20with-Cloud-28A745?style=for-the-badge)](https://openoutreach.app)
-
-</div>
 
 ---
 
@@ -121,10 +89,10 @@ For contributors or if you prefer running directly on your machine.
 
 ### 1. Clone & Set Up
 ```bash
-git clone https://github.com/eracle/OpenOutreach.git
-cd OpenOutreach
+git clone https://github.com/sudopunk/CloakedOutreach.git
+cd CloakedOutreach
 
-# Install deps, Playwright browsers, run migrations, and bootstrap CRM
+# Install deps, CloakBrowser binaries, run migrations, and bootstrap CRM
 make setup
 ```
 
@@ -137,7 +105,7 @@ The interactive onboarding will prompt for LinkedIn credentials, LLM API key, an
 
 ### 3. View Your Data (CRM Admin)
 
-OpenOutreach includes a full CRM web interface powered by DjangoCRM:
+CloakedOutreach includes a full CRM web interface powered by DjangoCRM:
 ```bash
 # Create an admin account (first time only)
 python manage.py createsuperuser
@@ -149,13 +117,14 @@ Then open:
 - **Django Admin:** http://localhost:8000/admin/
 
 ---
+
 ## ✨ Features
 
 | Feature                            | Description                                                                                                          |
 |------------------------------------|----------------------------------------------------------------------------------------------------------------------|
 | 🧠 **Autonomous Lead Discovery**   | No contact lists needed — LLM generates search queries from your product description and campaign objective.         |
 | 🎯 **Bayesian Active Learning**    | Gaussian Process model on profile embeddings learns your ideal customer via explore/exploit, selecting the most informative candidates for LLM qualification. |
-| 🤖 **Stealth Browser Automation**  | Playwright + stealth plugins mimic real user behavior for undetectable interactions.                                 |
+| 🤖 **Stealth Browser Automation**  | Powered by CloakBrowser to mimic real user behavior for undetectable interactions.                                   |
 | 🛡️ **Voyager API Scraping**       | Uses LinkedIn's internal API for accurate, structured profile data (no fragile HTML parsing).                        |
 | 🔄 **Stateful Pipeline**          | Tracks profile states (`QUALIFIED` → `READY_TO_CONNECT` → `PENDING` → `CONNECTED` → `COMPLETED`) in a local DB — fully resumable. |
 | ⏱️ **Smart Rate Limiting**        | Configurable daily/weekly limits per action type, respects LinkedIn's own limits automatically.                      |
@@ -213,7 +182,7 @@ Configure rate limits and behavior via Django Admin (LinkedInProfile + Campaign 
 │   ├── models.py                    # Django models (Campaign, LinkedInProfile, Task, etc.)
 │   ├── onboarding.py                # Interactive onboarding (campaign, credentials, LLM config)
 │   ├── pipeline/                    # Candidate sourcing, qualification, pool management
-│   ├── setup/                       # GDPR, self-profile, freemium campaign setup
+│   ├── setup/                       # Self-profile setup
 │   └── tasks/                       # Task handlers (connect, check_pending, follow_up)
 ├── manage.py                         # Django management (no args defaults to rundaemon)
 ├── local.yml                        # Docker Compose
@@ -234,48 +203,6 @@ Configure rate limits and behavior via Django Admin (LinkedInProfile + Campaign 
 
 ---
 
-## 💬 Community
-
-Join for support and discussions:
-[Telegram Group](https://t.me/+Y5bh9Vg8UVg5ODU0)
-
----
-
-### 🗓️ Book a Free 15-Minute Call
-
-Got a specific use case, feature request, or questions about setup?
-
-Book a **free 15-minute call** — I'd love to hear your needs and improve the tool based on real feedback.
-
-<div align="center">
-
-[![Book a 15-min call](https://img.shields.io/badge/Book%20a%2015--min%20call-28A745?style=for-the-badge&logo=calendar)](https://www.cal.eu/eracle/15min)
-
-</div>
-
----
-
-### ❤️ Support OpenOutreach
-
-This project is built in spare time to provide powerful, **free** open-source growth tools. Your sponsorship funds faster updates and keeps it free for everyone.
-
-<div align="center">
-
-[![Sponsor with GitHub](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ff69b4?style=for-the-badge&logo=github)](https://github.com/sponsors/eracle)
-
-<br/>
-
-| Tier        | Monthly | Benefits                                                              |
-|-------------|---------|-----------------------------------------------------------------------|
-| ☕ Supporter | $5      | Huge thanks + name in README supporters list                          |
-| 🚀 Booster  | $25     | All above + priority feature requests + early access to new campaigns |
-| 🦸 Hero     | $100    | All above + personal 1-on-1 support + influence roadmap               |
-| 💎 Legend   | $500+   | All above + custom feature development + shoutout in releases         |
-
-</div>
-
----
-
 ## ⚖️ License
 
 [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0) — see [LICENCE.md](LICENCE.md)
@@ -286,7 +213,7 @@ This project is built in spare time to provide powerful, **free** open-source gr
 
 **Not affiliated with LinkedIn.**
 
-By using this software you accept the [Legal Notice](LEGAL_NOTICE.md). It covers LinkedIn ToS risks, built-in self-promotional actions, automatic newsletter subscription for non-GDPR accounts, and liability disclaimers.
+By using this software you accept the [Legal Notice](LEGAL_NOTICE.md). It covers LinkedIn ToS risks and liability disclaimers.
 
 **Use at your own risk — no liability assumed.**
 
@@ -294,11 +221,11 @@ By using this software you accept the [Legal Notice](LEGAL_NOTICE.md). It covers
 
 <div align="center">
 
-<a href="https://star-history.com/#eracle/OpenOutreach&Date">
+<a href="https://star-history.com/#sudopunk/CloakedOutreach&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=eracle/OpenOutreach&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=eracle/OpenOutreach&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=eracle/OpenOutreach&type=Date" width="400" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=sudopunk/CloakedOutreach&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=sudopunk/CloakedOutreach&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=sudopunk/CloakedOutreach&type=Date" width="400" />
  </picture>
 </a>
 

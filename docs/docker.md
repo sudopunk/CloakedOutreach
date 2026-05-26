@@ -5,10 +5,10 @@
 Pre-built production images are published to GitHub Container Registry on every push to `master`.
 
 ```bash
-docker run --pull always -it -p 5900:5900 -v openoutreach_db:/app/data ghcr.io/eracle/openoutreach:latest
+docker run --pull always -it -p 5900:5900 -v cloakedoutreach_db:/app/data ghcr.io/sudopunk/cloakedoutreach:latest
 ```
 
-The interactive onboarding will guide you through LinkedIn credentials, LLM API key, and campaign setup on first run. All data (CRM database, cookies, model blobs, embeddings) persists in the `openoutreach_db` Docker volume.
+The interactive onboarding will guide you through LinkedIn credentials, LLM API key, and campaign setup on first run. All data (CRM database, cookies, model blobs, embeddings) persists in the `cloakedoutreach_db` Docker volume.
 
 ### Available Tags
 
@@ -36,8 +36,8 @@ docker ps
 # Stop it
 docker stop <container-id>
 
-# Restart (data persists in the openoutreach_db volume)
-docker run --pull always -it -p 5900:5900 -v openoutreach_db:/app/data ghcr.io/eracle/openoutreach:latest
+# Restart (data persists in the cloakedoutreach_db volume)
+docker run --pull always -it -p 5900:5900 -v cloakedoutreach_db:/app/data ghcr.io/sudopunk/cloakedoutreach:latest
 ```
 
 ---
@@ -56,8 +56,8 @@ mounts the entire project directory into the container for live code editing.
 ### Build & Run
 
 ```bash
-git clone https://github.com/eracle/OpenOutreach.git
-cd OpenOutreach
+git clone https://github.com/sudopunk/CloakedOutreach.git
+cd CloakedOutreach
 
 # Build and start
 make up
@@ -90,4 +90,4 @@ The VNC server is exposed on port 5900. Use `make up-view` to auto-open it, or c
 
 ### Volume Mounts
 
-The pre-built `docker run` command uses a named Docker volume (`openoutreach_db`) mounted at `/app/data` for data persistence (database, config). The compose setup (`local.yml`) mounts the entire repo `.:/app` for live code editing during development.
+The pre-built `docker run` command uses a named Docker volume (`cloakedoutreach_db`) mounted at `/app/data` for data persistence (database, config). The compose setup (`local.yml`) mounts the entire repo `.:/app` for live code editing during development.

@@ -1,6 +1,6 @@
-# LinkedIn Leads OpenOutreach
+# LinkedIn Leads CloakedOutreach
 
-This document outlines the target customer and keyword strategy for acquiring new users for OpenOutreach, the
+This document outlines the target customer and keyword strategy for acquiring new users for CloakedOutreach, the
 open-source LinkedIn automation tool.
 
 ## Ideal Customer Profile: The Indie Hacker

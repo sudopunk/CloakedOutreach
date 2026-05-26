@@ -1,6 +1,6 @@
 # Testing
 
-This document describes the testing setup and conventions for OpenOutreach.
+This document describes the testing setup and conventions for CloakedOutreach.
 
 ## Framework & Tools
 
@@ -73,8 +73,6 @@ tests/
 │   └── test_profile_text.py # Profile text builder
 ├── test_action_log.py       # ActionLog rate limiting
 ├── test_conf.py             # Configuration loading
-├── test_emails.py           # Newsletter subscription
-├── test_gdpr.py             # GDPR location detection
 ├── test_reconcile.py        # Task queue reconciliation (scheduler.reconcile)
 ├── test_onboarding.py       # Interactive onboarding
 ├── test_pools.py            # Candidate pool generators

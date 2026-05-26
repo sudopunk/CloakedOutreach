@@ -12,7 +12,7 @@
 
 ## Project Overview
 
-OpenOutreach — self-hosted LinkedIn automation for B2B lead generation. Playwright + stealth for browser automation, LinkedIn Voyager API for profile data, Django + Django Admin for CRM (models owned by this project).
+CloakedOutreach — self-hosted LinkedIn automation for B2B lead generation. CloakBrowser for browser automation, LinkedIn Voyager API for profile data, Django + Django Admin for CRM (models owned by this project).
 
 ## Commands
 

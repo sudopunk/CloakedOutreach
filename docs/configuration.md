@@ -26,8 +26,6 @@ Django Admin (`/admin/`) or created during interactive onboarding.
 | `product_docs` | text | Product/service description. Used by LLM qualification, follow-up agent, and search keyword generation. |
 | `campaign_objective` | text | Campaign goal. Used by LLM qualification, follow-up agent, and search keyword generation. |
 | `booking_link` | string | URL included in follow-up messages when suggesting a meeting. |
-| `is_freemium` | boolean | Whether this is a freemium campaign (uses KitQualifier instead of BayesianQualifier). |
-| `action_fraction` | float | Target fraction of total connections for freemium campaigns. |
 
 ## Account Settings (Django Model)
 
@@ -39,7 +37,6 @@ Django Admin or created during interactive onboarding.
 | `linkedin_username` | string | LinkedIn login email. | (required) |
 | `linkedin_password` | string | LinkedIn password. | (required) |
 | `active` | boolean | Enable/disable this account. | `true` |
-| `subscribe_newsletter` | boolean | Receive OpenOutreach updates. | `true` |
 | `connect_daily_limit` | integer | Max connection requests per day. | `20` |
 | `connect_weekly_limit` | integer | Max connection requests per week. | `100` |
 | `follow_up_daily_limit` | integer | Max follow-up messages per day. | `30` |
@@ -47,18 +44,6 @@ Django Admin or created during interactive onboarding.
 
 Rate limiting is enforced by `LinkedInProfile` methods (`can_execute()`, `record_action()`,
 `mark_exhausted()`) backed by the `ActionLog` model, surviving daemon restarts.
-
-### GDPR Location Detection
-
-On the first run, the daemon checks the logged-in user's LinkedIn country code against a static set of
-ISO-2 codes for jurisdictions with opt-in email marketing laws (EU/EEA, UK, Switzerland, Canada, Brazil,
-Australia, Japan, South Korea, New Zealand).
-
-- **Non-GDPR location**: `subscribe_newsletter` is auto-set to `true` for that account.
-- **GDPR-protected location**: the existing value is preserved (no override).
-- **Unknown/empty location**: defaults to GDPR-protected (errs on the side of caution).
-
-This check runs once per account (a database marker record prevents re-runs).
 
 ## Hardcoded Defaults (`conf.py:CAMPAIGN_CONFIG`)
 

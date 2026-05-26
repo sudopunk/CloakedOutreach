@@ -1,4 +1,4 @@
-# GDPR Implementation Roadmap — OpenOutreach
+# GDPR Implementation Roadmap — CloakedOutreach
 
 Implementation plan for the compliance gaps identified in [GDPR_COMPLIANCE_REPORT.md](GDPR_COMPLIANCE_REPORT.md).
 

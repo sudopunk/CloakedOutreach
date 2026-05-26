@@ -7,7 +7,7 @@ Extract `linkedin/api/` + `linkedin/browser/` + `linkedin/actions/` into a stand
 ## Architecture
 
 ```
-OpenOutreach campaign logic (when/who/why)
+CloakedOutreach campaign logic (when/who/why)
         |
 playwright-linkedin Python API (LinkedIn primitives)
         |
@@ -108,13 +108,13 @@ Cookies are strings passed by the caller. The library never reads or writes file
 | `linkedin/exceptions.py` | `AuthenticationError`, `SkipProfile`, `ReachedConnectionLimit` |
 | Stealth | Applied by library on session creation |
 
-## What stays in OpenOutreach
+## What stays in CloakedOutreach
 
 | Concern | Notes |
 |---|---|
 | Campaign logic | Task queue, state machine, scheduling |
 | Django models | Lead, Deal, Campaign, LinkedInProfile |
-| Passive profile discovery | `_discover_and_enrich()` from nav.py — OpenOutreach hooks into navigation events, not the library |
+| Passive profile discovery | `_discover_and_enrich()` from nav.py — CloakedOutreach hooks into navigation events, not the library |
 | Cookie persistence | `LinkedInProfile.cookie_data` — calls `export_cookies()` and stores the dict |
 | Credential storage | `LinkedInProfile.linkedin_username/password` |
 | ML pipeline | GPR, BALD, LLM qualification |
@@ -132,10 +132,10 @@ Cookies are strings passed by the caller. The library never reads or writes file
 
 ## Steps
 
-1. ~~Extract in-place: cut all Django/DB imports from library modules, verify OpenOutreach still works~~ **Done** — `url_utils` moved out of `db/`, `VOYAGER_REQUEST_TIMEOUT_MS` moved to `api/client.py`, `crm.models` removed from actions CLI
+1. ~~Extract in-place: cut all Django/DB imports from library modules, verify CloakedOutreach still works~~ **Done** — `url_utils` moved out of `db/`, `VOYAGER_REQUEST_TIMEOUT_MS` moved to `api/client.py`, `crm.models` removed from actions CLI
 2. Add `connect_session()` entry point — replaces `launch_browser()` + `start_browser_session()`
 3. ~~Remove `_discover_and_enrich` from nav.py~~ **Already clean** — nav.py never imported it; only used `url_to_public_id` (now in `url_utils`)
 4. ~~Replace `crm.models.Lead` usage in actions with plain URN/dict arguments~~ **Done** — actions already take URN/dict in public APIs; CLI `__main__` blocks updated
 5. Build CLI with subcommands over existing API modules
 6. Move to separate repo (`git filter-repo`)
-7. Publish as `playwright-linkedin`, update OpenOutreach to `pip install` it
+7. Publish as `playwright-linkedin`, update CloakedOutreach to `pip install` it

@@ -14,7 +14,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 
 BASE_DIR = ROOT_DIR
 
-SECRET_KEY = "openoutreach-local-dev-key-change-in-production"
+SECRET_KEY = "cloakedoutreach-local-dev-key-change-in-production"
 
 DEBUG = True
 
